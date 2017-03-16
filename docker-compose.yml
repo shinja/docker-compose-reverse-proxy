@@ -1,0 +1,20 @@
+version: '3'
+services:
+
+  web:
+    build: ./web
+    # ports:
+    #  - "5000:5000"
+    # volumes: #mount host directory into docker container
+    #  - ./web/code:/code
+
+  redis:
+    image: "redis:alpine"
+
+  reverse-proxy:
+    image: lerenn/nginx-reverse-proxy
+    volumes:
+     - ./nginx/sites-enabled:/etc/nginx/sites-enabled
+    ports:
+     - "${EXTERNAL_PORT}:80"
+    #  - "443:443"
